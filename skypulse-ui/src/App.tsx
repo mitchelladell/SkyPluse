@@ -1,16 +1,17 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { WeatherCard } from "./components/stories/WeatherCard";
 
 function App() {
   return (
-    <>
-      {" "}
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-sky-500 to-blue-800 text-white text-4xl font-bold">
-        TailwindCSS is working! 🚀
-      </div>
-    </>
+    <div className="w-screen h-screen bg-gray-100 flex flex-col items-center">
+      <h1 className="text-3xl font-bold mb-6">SkyPulse Weather Dashboard</h1>
+
+      <WeatherCard
+        city="New York"
+        temperature={25}
+        humidity={55}
+        location="40.7128° N, 74.0060° W"
+      />
+    </div>
   );
 }
 
