@@ -1,6 +1,12 @@
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { redisPubSub } from 'src/pubsub/redis.pubsub';
 
-export class WeatherService {
+@Injectable()
+export class WeatherService implements OnModuleInit {
+  onModuleInit() {
+    this.startMockPublisher();
+  }
+
   startMockPublisher() {
     setInterval(() => {
       redisPubSub.publish('weatherUpdates', {
@@ -10,6 +16,6 @@ export class WeatherService {
           humidity: 60 + Math.random() * 10,
         },
       });
-    }, 5000); // every 5 sec
+    }, 5000);
   }
 }
