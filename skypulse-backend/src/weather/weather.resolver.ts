@@ -1,15 +1,17 @@
-import { Resolver, Query, Subscription } from '@nestjs/graphql';
-import { redisPubSub } from '../pubsub/redis.pubsub';
+import { Query, Resolver, Subscription } from '@nestjs/graphql';
+import { WeatherUpdate } from './weather.model';
+import { redisPubSub } from 'src/pubsub/redis.pubsub';
 
-@Resolver()
+@Resolver(() => WeatherUpdate)
 export class WeatherResolver {
+  // ✅ Dummy root query to satisfy GraphQL schema
   @Query(() => String)
-  currentWeather() {
-    return 'Sunny ☀️'; // stub for now
+  ping() {
+    return 'pong';
   }
 
-  @Subscription(() => String, {
-    resolve: (payload) => payload.weatherUpdates,
+  @Subscription(() => WeatherUpdate, {
+    name: 'weatherUpdates',
   })
   weatherUpdates() {
     return redisPubSub.asyncIterator('weatherUpdates');

@@ -3,20 +3,27 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { WeatherModule } from './weather/weather.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      installSubscriptionHandlers: true,
-      playground: true,
+
+      // Auto-generate the GraphQL schema file
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+
+      // Enable subscriptions over WebSocket
       subscriptions: {
         'graphql-ws': true,
+        // optional: support for legacy tools (Apollo Client v2, Playground)
         'subscriptions-transport-ws': true,
       },
+
+      // Enable GraphQL Playground in browser
+      playground: true,
     }),
+
     WeatherModule,
-    // Add your modules here (e.g. WeatherModule)
   ],
 })
 export class AppModule {}

@@ -1,13 +1,13 @@
-// src/pubsub/redis.pubsub.ts
 import { RedisPubSub } from 'graphql-redis-subscriptions';
-import { RedisOptions } from 'ioredis';
+import Redis from 'ioredis';
 
-const options: RedisOptions = {
-  host: 'localhost',
+const options = {
+  host: '127.0.0.1', // or your Redis host
   port: 6379,
   retryStrategy: (times) => Math.min(times * 50, 2000),
 };
 
 export const redisPubSub = new RedisPubSub({
-  connection: options,
+  publisher: new Redis(options),
+  subscriber: new Redis(options),
 });
