@@ -1,4 +1,4 @@
-import LiveWeather from "./components/stories/LiveWeather";
+import { LiveWeather } from "./components/stories/LiveWeather";
 function App() {
   return (
     <div className="w-screen h-screen bg-gray-100 flex flex-col items-center">

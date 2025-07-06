@@ -1,4 +1,3 @@
-// src/lib/apollo.ts
 import { ApolloClient, InMemoryCache, split, HttpLink } from "@apollo/client";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
@@ -14,12 +13,12 @@ const wsLink = new GraphQLWsLink(
   })
 );
 
+// Split based on operation type
 const splitLink = split(
   ({ query }) => {
-    const definition = getMainDefinition(query);
+    const def = getMainDefinition(query);
     return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
+      def.kind === "OperationDefinition" && def.operation === "subscription"
     );
   },
   wsLink,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import LiveWeather from "./LiveWeather";
+import { LiveWeather } from "./LiveWeather";
 
 const meta = {
   component: LiveWeather,
