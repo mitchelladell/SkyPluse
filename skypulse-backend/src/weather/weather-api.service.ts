@@ -1,12 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { redisPubSub } from 'src/pubsub/redis.pubsub';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class WeatherApiService {
   private readonly logger = new Logger(WeatherApiService.name);
-  private readonly API_KEY = 'f492c2da3b844ce9b98164208250507'; // Replace with env later
   private readonly BASE_URL = 'http://api.weatherapi.com/v1/current.json';
+  private readonly API_KEY: string | undefined;
+
+  constructor(private configService: ConfigService) {
+    this.API_KEY = this.configService.get<string>('WEATHER_API_KEY');
+  }
 
   async fetchAndPublish(city: string) {
     try {

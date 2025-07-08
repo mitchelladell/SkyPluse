@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { WeatherModule } from './weather/weather.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -21,6 +22,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
       // Enable GraphQL Playground in browser
       playground: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true, // makes config available app-wide
     }),
 
     WeatherModule,

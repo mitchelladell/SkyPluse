@@ -8,6 +8,6 @@ export class WeatherService implements OnModuleInit {
   onModuleInit() {
     setInterval(() => {
       this.weatherApi.fetchAndPublish('London');
-    }, 5000); // every 10 seconds
+    }, 10000); // every 10 seconds
   }
 }
