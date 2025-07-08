@@ -1,4 +1,3 @@
-// WeatherCard.tsx
 interface WeatherCardProps {
   city: string;
   temperature: number;
@@ -12,10 +11,12 @@ export const WeatherCard = ({
   humidity,
   location,
 }: WeatherCardProps) => (
-  <div className="p-4 rounded shadow bg-white dark:bg-gray-800">
+  <div className="w-80 h-40 p-4 rounded-2xl shadow-md bg-white dark:bg-gray-800 flex flex-col justify-between">
     <h2 className="text-xl font-bold">{city}</h2>
-    <p>🌡 Temp: {temperature}°C</p>
-    <p>💧 Humidity: {humidity}%</p>
-    <p>💧 Country: {location}</p>
+    <div>
+      <p>🌡 Temp: {temperature}°C</p>
+      <p>💧 Humidity: {humidity}%</p>
+      <p>🌍 Country: {location}</p>
+    </div>
   </div>
 );

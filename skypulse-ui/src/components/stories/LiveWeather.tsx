@@ -1,30 +1,40 @@
 import { gql, useSubscription } from "@apollo/client";
 import { WeatherCard } from "./WeatherCard";
 
-const WEATHER_SUBSCRIPTION = gql`
-  subscription {
-    weatherUpdates {
+export const WEATHER_SUBSCRIPTION = gql`
+  subscription WeatherUpdates($city: String!) {
+    weatherUpdates(city: $city) {
       city
       temperature
       humidity
+      location
     }
   }
 `;
 
-export const LiveWeather = () => {
-  const { data, loading } = useSubscription(WEATHER_SUBSCRIPTION);
-  console.log("data", data);
+type LiveWeatherProps = {
+  city: string;
+};
+
+export const LiveWeather = ({ city }: LiveWeatherProps) => {
+  const { data, loading } = useSubscription(WEATHER_SUBSCRIPTION, {
+    variables: { city },
+  });
 
   if (loading || !data) return <p>Waiting for weather updates...</p>;
 
-  const { city, temperature, humidity, location } = data.weatherUpdates;
+  const {
+    city: cityName,
+    temperature,
+    humidity,
+    location,
+  } = data.weatherUpdates;
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Live Weather</h1>
       <WeatherCard
-        city={city}
-        temperature={Math.round(temperature)}
+        city={cityName}
+        temperature={Math.round(Number(temperature))}
         humidity={Math.round(humidity)}
         location={location}
       />
