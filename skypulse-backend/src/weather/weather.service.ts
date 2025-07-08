@@ -1,21 +1,13 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { redisPubSub } from 'src/pubsub/redis.pubsub';
+import { WeatherApiService } from './weather-api.service';
 
 @Injectable()
 export class WeatherService implements OnModuleInit {
-  onModuleInit() {
-    this.startMockPublisher();
-  }
+  constructor(private readonly weatherApi: WeatherApiService) {}
 
-  startMockPublisher() {
+  onModuleInit() {
     setInterval(() => {
-      redisPubSub.publish('weatherUpdates', {
-        weatherUpdates: {
-          city: 'London',
-          temperature: 25 + Math.random() * 5,
-          humidity: 60 + Math.random() * 10,
-        },
-      });
-    }, 5000);
+      this.weatherApi.fetchAndPublish('London');
+    }, 5000); // every 10 seconds
   }
 }

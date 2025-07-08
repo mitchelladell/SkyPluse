@@ -16,6 +16,6 @@ export const WeatherCard = ({
     <h2 className="text-xl font-bold">{city}</h2>
     <p>🌡 Temp: {temperature}°C</p>
     <p>💧 Humidity: {humidity}%</p>
-    <p>💧 Location: {location}</p>
+    <p>💧 Country: {location}</p>
   </div>
 );
