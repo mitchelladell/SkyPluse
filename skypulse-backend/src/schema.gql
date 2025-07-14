@@ -9,8 +9,14 @@ type WeatherUpdate {
   location: String!
 }
 
+type cityDTO {
+  value: String!
+  label: String!
+}
+
 type Query {
   ping: String!
+  searchCities(q: String!): [cityDTO!]!
 }
 
 type Subscription {

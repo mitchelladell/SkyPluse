@@ -23,6 +23,8 @@ export const LiveWeather = ({ city }: LiveWeatherProps) => {
 
   if (loading || !data) return <p>Waiting for weather updates...</p>;
 
+  console.log("dataa", data);
+
   const {
     city: cityName,
     temperature,

@@ -4,6 +4,7 @@ import { join } from 'path';
 import { WeatherModule } from './weather/weather.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { CityModule } from './cities/cities.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
 
     WeatherModule,
+    CityModule,
   ],
 })
 export class AppModule {}
